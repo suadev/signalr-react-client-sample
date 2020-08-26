@@ -15,7 +15,7 @@ let hubConnectionOptions = {
 
 const hubConnection = new HubConnectionBuilder()
   .withUrl(`http://localhost:5000/hubs/update-tracker`, hubConnectionOptions)
-  .withHubProtocol(new protocols.MessagePackHubProtocol())
+  // .withHubProtocol(new protocols.MessagePackHubProtocol())
   .configureLogging(LogLevel.Debug) // set loggingg level here
   .build();
 
@@ -47,8 +47,7 @@ class App extends Component {
       {
         ResourceId: "ef832457-e24a-4bc7-b769-e5d3bc36e254",
         ResourceType: "Type"
-      },
-      "1f832457-e24a-4bc7-b769-e5d3bc36e254"
+      }
     );
   }
 
