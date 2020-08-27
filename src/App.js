@@ -25,11 +25,15 @@ hubConnection.onclose(() => {
 });
 
 function starthub() {
-  hubConnection.start().catch(function () {
-    connectionRetryAttempt++;
-    let sleepDuration = 1000 * (connectionRetryAttempt > 5 ? 60 : Math.pow(2, connectionRetryAttempt));
-    setTimeout(() => starthub(), sleepDuration);
-  });
+
+  hubConnection.start()
+    .catch(function () {
+      connectionRetryAttempt++;
+      let sleepDuration = 1000 * (connectionRetryAttempt > 5 ? 60 : Math.pow(2, connectionRetryAttempt));
+      setTimeout(() => starthub(), sleepDuration);
+    }).then(() => {
+      hubConnection.invoke('JoinGroup', 'ResourceTrackers');
+    });
 }
 
 hubConnection.on("ResourceUpdated", data => {
